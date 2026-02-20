@@ -112,11 +112,12 @@ MSc Candidate in Biology
 Brandon University, Manitoba, Canada  
 
 Research focus: Bioinformatics pipeline development, genomics data analysis, and multi-omics workflows.
-Advisor: Dr. Bryan Cassone  
+**Advisor:** Dr. Bryan Cassone  
 GitHub: https://github.com/Achukwunta
 
 https://img.shields.io/badge/GitHub-Achukwunta-blue?logo=github
 
 ## 🤝 Contributing & Contact
 For questions about the analysis, suggestions for improvement, or potential collaboration, please contact Augustine Chukwunta or open an issue on this repository.
+
 Thank you and Happy research!# germline-variant-calling
