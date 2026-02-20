@@ -1,4 +1,4 @@
-# Human Germline Variant Calling and Variant Annotation (GRCh38)
+# Human Germline Variant Calling and Annotation (GRCh38)
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥7.32.4-brightgreen.svg)](https://snakemake.github.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -84,7 +84,7 @@ Use `--use-conda` to ensure all dependencies are managed in isolated environment
 Project-specific parameters, file paths, and computational resources are defined in the `config/config.yaml`
 
 ```text
-**Example parameters** include:
+Example parameters include:
 - Sample identifiers
 - FASTQ file paths
 - Reference genome location
@@ -111,8 +111,8 @@ For local development, analysis is restricted to chromosome 20 to reduce computa
 MSc Candidate in Biology  
 Brandon University, Manitoba, Canada  
 
-Research focus: Bioinformatics pipeline development, genomics data analysis, and multi-omics workflows.
-**Advisor:** Dr. Bryan Cassone  
+**Research focus:** Bioinformatics pipeline development, genomics data analysis, and multi-omics workflows.
+
 GitHub: https://github.com/Achukwunta
 
 https://img.shields.io/badge/GitHub-Achukwunta-blue?logo=github
@@ -120,4 +120,5 @@ https://img.shields.io/badge/GitHub-Achukwunta-blue?logo=github
 ## 🤝 Contributing & Contact
 For questions about the analysis, suggestions for improvement, or potential collaboration, please contact Augustine Chukwunta or open an issue on this repository.
 
-Thank you and Happy research!# germline-variant-calling
+Thank you and Happy research!
+
