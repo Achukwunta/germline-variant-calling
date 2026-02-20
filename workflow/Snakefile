@@ -1,0 +1,111 @@
+# workflow/Snakefile
+configfile: "config/config.yaml"
+
+SAMPLE = config["sample"]
+REF = config["reference"]["fasta"]
+
+rule all:
+    input:
+        f"{config['output']['annotation']}/{SAMPLE}.annotated.vcf"
+
+# --- Quality Control ---
+
+rule fastqc:
+    input:
+        r1=config["fastq"]["r1"],
+        r2=config["fastq"]["r2"]
+    output:
+        html1=f"{config['output']['qc']}/{SAMPLE}_R1_fastqc.html",
+        html2=f"{config['output']['qc']}/{SAMPLE}_R2_fastqc.html"
+    log:
+        f"logs/fastqc.log"
+    shell:
+        """
+        fastqc {input.r1} {input.r2} \
+        --outdir {config[output][qc]} &> {log}
+        """
+
+# --- Alignment ---
+
+rule bwa_mem:
+    input:
+        r1=config["fastq"]["r1"],
+        r2=config["fastq"]["r2"],
+        ref=REF
+    output:
+        bam=temp(f"{config['output']['bam']}/{SAMPLE}.unsorted.bam")
+    threads: config["threads"]["bwa"]
+    log:
+        f"logs/bwa_mem.log"
+    shell:
+        """
+        bwa mem -t {threads} {input.ref} {input.r1} {input.r2} |
+        samtools view -bS - > {output.bam}
+        """
+
+rule sort_bam:
+    input:
+        bam=f"{config['output']['bam']}/{SAMPLE}.unsorted.bam"
+    output:
+        bam=f"{config['output']['bam']}/{SAMPLE}.sorted.bam",
+        bai=f"{config['output']['bam']}/{SAMPLE}.sorted.bam.bai"
+    threads: config["threads"]["samtools"]
+    log:
+        f"logs/samtools_sort.log"
+    shell:
+        """
+        samtools sort -@ {threads} -o {output.bam} {input.bam}
+        samtools index {output.bam}
+        """
+
+# --- Mark duplicates ---
+
+rule mark_duplicates:
+    input:
+        bam=f"{config['output']['bam']}/{SAMPLE}.sorted.bam"
+    output:
+        bam=f"{config['output']['bam']}/{SAMPLE}.markdup.bam",
+        bai=f"{config['output']['bam']}/{SAMPLE}.markdup.bam.bai",
+        metrics=f"{config['output']['bam']}/{SAMPLE}.dup_metrics.txt"
+    log:
+        f"logs/markdup.log"
+    shell:
+        """
+        picard MarkDuplicates \
+          I={input.bam} \
+          O={output.bam} \
+          M={output.metrics} \
+          CREATE_INDEX=true &> {log}
+        """
+
+# --- Variant calling ---
+
+rule haplotypecaller:
+    input:
+        bam=f"{config['output']['bam']}/{SAMPLE}.markdup.bam",
+        ref=REF
+    output:
+        vcf=f"{config['output']['vcf']}/{SAMPLE}.raw.vcf.gz"
+    log:
+        f"logs/haplotypecaller.log"
+    shell:
+        """
+        gatk HaplotypeCaller \
+          -R {input.ref} \
+          -I {input.bam} \
+          -O {output.vcf} &> {log}
+        """
+
+# --- Variant annotation ---
+
+rule snpeff:
+    input:
+        vcf=f"{config['output']['vcf']}/{SAMPLE}.raw.vcf.gz"
+    output:
+        vcf=f"{config['output']['annotation']}/{SAMPLE}.annotated.vcf"
+    log:
+        f"logs/snpeff.log"
+    shell:
+        """
+        snpEff GRCh38.86 {input.vcf} > {output.vcf} 2> {log}
+        """

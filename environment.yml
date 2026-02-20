@@ -1,0 +1,21 @@
+#environment.yml
+name: germline-variant-calling
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  # Core bioinformatics tools
+  - fastqc=0.12.1
+  - multiqc=1.22.1
+  - fastp=0.23.4
+  - seqkit=2.10.0
+  - bwa=0.7.19-r1273
+  - samtools=1.23
+  - picard=3.4.0
+  - gatk4=4.6.2.0
+  - snpEff=5.4a
+  
+  # Python environment for analysis
+  - python=3.12
+  - snakemake=7.32.4

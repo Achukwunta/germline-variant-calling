@@ -1,0 +1,24 @@
+# .gitignore for human germline variant Calling project
+
+# Snakemake internals
+.snakemake/
+logs/
+
+# Ignore all data and resources (Reference FASTA and FASTQs)
+# These are defined by REF and config["fastq"]
+data/raw/*
+resources/reference/*
+
+# Ignore all output directories defined in your config
+# This covers qc/, bam/, vcf/, and annotation/
+results/
+
+# Ignore index files created during the run
+*.bai
+*.fai
+*.dict
+
+# Keep the directory structure on GitHub
+!data/raw/.gitkeep
+!resources/reference/.gitkeep
+!results/.gitkeep

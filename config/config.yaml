@@ -1,0 +1,27 @@
+# config/config.yml
+# Configuration for Human Germline Variant Calling and Variant Annotation (GRCh38)
+
+# Sample metadata
+sample: SRR622457
+
+# Input FASTQ files (paired-end)
+fastq:
+  r1: "data/raw/SRR622457_R1.fastq.gz"
+  r2: "data/raw/SRR622457_R2.fastq.gz"
+
+# Reference genome (GRCh38 chromosome 20)
+reference:
+  fasta: "resources/reference/chr20.fa"
+
+# Output directories
+output:
+  qc: "results/qc"
+  bam: "results/bam"
+  vcf: "results/vcf"
+  annotation: "results/annotation"
+
+# Computational resources
+threads:
+  bwa: 8
+  samtools: 8
+  gatk: 4
