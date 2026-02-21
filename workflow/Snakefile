@@ -33,7 +33,7 @@ rule bwa_mem:
         r2=config["fastq"]["r2"],
         ref=REF
     output:
-        bam=temp(f"{config['output']['bam']}/{SAMPLE}.unsorted.bam")
+        bam=temp(f"{config['output']['bam']}/{SAMPLE}_unsorted.bam")
     threads: config["threads"]["bwa"]
     log:
         f"logs/bwa_mem.log"
@@ -108,4 +108,5 @@ rule snpeff:
     shell:
         """
         snpEff GRCh38.86 {input.vcf} > {output.vcf} 2> {log}
+
         """
