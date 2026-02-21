@@ -4,7 +4,7 @@ SECONDS=0
 # Set working directory
 cd /mnt/f/variant_calling
 
-echo "Creating a necessary folders"
+echo "Creating necessary folders"
 mkdir -p {raw_fastq,qc,ref,bam,vcf,annotation,logs}
 
 echo "Step 1: Downloading sample data (NA12878) from 1000 genomes project"
