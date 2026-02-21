@@ -53,7 +53,7 @@ germline-variant-calling/
     ```
 
 2.  **Download Required Databases:**  
-    Download the GRCh38 reference genome (chromosome 20) and sample data (NA12878). Next, place the files and place it in the `resources/reference/` directory. Paths are specified in `config.yaml`.
+    Download the GRCh38 reference genome (chromosome 20) and sample data (NA12878). Next, place the GRCh38 file in the `resources/reference/` and NA12878 in the `data/raw/` directory. Paths are specified in `config.yaml`.
 
 3.  **Create and activate the Conda environment:**
     ```bash
@@ -72,12 +72,12 @@ Use `--use-conda` to ensure all dependencies are managed in isolated environment
 ## 🔬 Pipeline Steps
 
 1. **Quality Control:** Raw sequencing reads are assessed using `FastQC`, with summary reporting via `MultiQC`.
-2. **Trimming:** Raw sequencing reads undergo trimming to remove low quality bases and adapter contaminatuion using `Fastp`.
+2. **Trimming:** Raw sequencing reads undergo trimming to remove low quality bases and adapter contamination using `Fastp`.
 3. **Alignment:** Paired-end reads are aligned to the GRCh38 reference genome (chromosome 20) using `BWA-MEM`.
 4. **BAM Processing:** Aligned reads are sorted and indexed with `SAMtools`, followed by duplicate marking using `Picard MarkDuplicates`.
 5. **Variant Calling:** Germline single nucleotide polymorphisms (SNPs) and small insertions/deletions (indels) are identified using `GATK HaplotypeCaller`.
 6. **Variant Filtering:** Raw variant calls are filtered using standard hard-filter criteria to retain high-confidence variants.
-7. **Functional Annotation:** Filtered variants are functionally annotated using `SnpEff` with GRCh38 annotations.
+7. **Functional Annotation:** Filtered variants are functionally annotated using `SnpEff`.
 
 ## 🔧 Configuration
 
@@ -93,7 +93,7 @@ Example parameters include:
 
 ## 📊 Data Sources
 
-- **Human sequencing data**: Publicly available NA12878 whole-genome sequencing data from the 1000 Genomes Project.
+- **Human sequencing data**: Publicly available whole-genome sequencing data (NA12878) from the 1000 Genomes Project.
 - **Reference genome**: Human GRCh38 reference genome from Ensembl(chromosome 20 subset).
 - **Annotation database**: SnpEff GRCh38 annotation database.
 
@@ -121,4 +121,5 @@ https://img.shields.io/badge/GitHub-Achukwunta-blue?logo=github
 For questions about the analysis, suggestions for improvement, or potential collaboration, please contact Augustine Chukwunta or open an issue on this repository.
 
 Thank you and Happy research!
+
 
