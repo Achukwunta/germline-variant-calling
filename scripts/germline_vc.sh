@@ -59,7 +59,7 @@ bwa mem -t 8 ref/chr20.fa raw_fastq/SRR622457_1.fastq.gz raw_fastq/SRR622457_2.f
 
 echo "Step 6: Indexing BAM files"
 # Sort BAM by genomic coordinates
-samtools sort -@ 8 -o bam/SRR622457.sorted.bam bam/SRR622457.unsorted.bam
+samtools sort -@ 8 -o bam/SRR622457.sorted.bam bam/SRR622457_unsorted.bam
 # Index the sorted BAM
 samtools index bam/SRR622457.sorted.bam
 
